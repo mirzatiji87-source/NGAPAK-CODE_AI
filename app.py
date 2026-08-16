@@ -1,9 +1,11 @@
+from dotenv import load_dotenv 
+load_dotenv() 
 import markdown
 import random
 import os
 import zipfile
 from flask import Flask, render_template, request, session, redirect, send_file
-from checker import cek_pakai_ai
+from checker import cek_pakai_ai, AIError
 from dialect import get_pesan_pembuka, terjemahkan_error
 from database import read_questions, get_question_by_id,  create_question, update_question,  delete_question
 ADMIN_PASSWORD = os.getenv("ADMIN_PASSWORD", "admin123")
@@ -25,9 +27,16 @@ def cek_error():
         gaya = request.form["gaya"]
 
         pembuka = get_pesan_pembuka(bahasa_mkd, gaya)
-        jawaban_ai = cek_pakai_ai(kode_user, bahasa_program, bahasa_mkd, gaya)
 
-        if jawaban_ai:
+        try:
+            jawaban_ai = cek_pakai_ai(kode_user, bahasa_program, bahasa_mkd, gaya)
+        except AIError:
+            hasil_mentah = f"{pembuka}\n\nWaduh, AI-nya lagi gak bisa diajak diskusi (server sibuk atau kuota abis). Coba lagi beberapa saat ya, mas!"
+            jawaban_ai = "SUDAH_DITANGANI"
+
+        if jawaban_ai == "SUDAH_DITANGANI":
+            pass
+        elif jawaban_ai:
             hasil_mentah = f"{pembuka}\n\n{jawaban_ai}"
         else:
             try:
@@ -38,7 +47,7 @@ def cek_error():
                 hasil_mentah = f"{pembuka}\n\nAda syntax error di baris {e.lineno}: {penjelasan}"
 
         hasil = markdown.markdown(hasil_mentah)
-        
+
         return render_template(
             "cek_error.html",
             hasil=hasil,

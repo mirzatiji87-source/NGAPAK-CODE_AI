@@ -3,12 +3,19 @@ import os
 
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY", "")
 
+
+class AIError(Exception):
+    """Dipakai buat nandain AI beneran gagal (quota/network/dll),
+    beda sama kondisi API key belum diisi (yang sengaja fallback diam-diam)."""
+    pass
+
+
 def cek_pakai_ai(kode_user, bahasa_program, bahasa_mkd, gaya):
     if not GEMINI_API_KEY:
         return None
-    
+
     client = genai.Client(api_key=GEMINI_API_KEY)
-    
+
     prompt = f"""
     Kamu adalah "Mas Koding", mentor coding yang ramah dan berpengalaman.
 
@@ -28,7 +35,7 @@ def cek_pakai_ai(kode_user, bahasa_program, bahasa_mkd, gaya):
     Kode yang mau dicek ({bahasa_program}):
     {kode_user}
     """
-    
+
     try:
         response = client.models.generate_content(
             model="gemini-flash-latest",
@@ -37,4 +44,4 @@ def cek_pakai_ai(kode_user, bahasa_program, bahasa_mkd, gaya):
         return response.text
     except Exception as e:
         print("ERROR ASLI:", e)
-        return None
+        raise AIError(str(e))
