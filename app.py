@@ -207,5 +207,7 @@ def download_source():
     nama_zip = buat_zip_source()
     return send_file(nama_zip, as_attachment=True)
 
+app = app
+
 if __name__ == "__main__":
     app.run(debug=False)
