@@ -6,10 +6,11 @@ from flask import Flask, render_template, request, session, redirect, send_file
 from checker import cek_pakai_ai
 from dialect import get_pesan_pembuka, terjemahkan_error
 from database import read_questions, get_question_by_id,  create_question, update_question,  delete_question
-from config import ADMIN_PASSWORD, SECRET_KEY
+ADMIN_PASSWORD = os.getenv("ADMIN_PASSWORD", "admin123")
+SECRET_KEY = os.getenv("SECRET_KEY", "rahasia_super_aman")
 
 app = Flask(__name__)
-app.secret_key = "SECRET_KEY"
+app.secret_key = SECRET_KEY
 
 @app.route("/")
 def home():
