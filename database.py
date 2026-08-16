@@ -1,5 +1,7 @@
 import sqlite3
-from config import DB_NAME
+import os
+
+DB_NAME = os.getenv("DB_NAME", "ngapak_code.db")
 
 def get_connection():
     conn = sqlite3.connect(DB_NAME)

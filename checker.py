@@ -1,5 +1,7 @@
 from google import genai
-from config import GEMINI_API_KEY
+import os
+
+GEMINI_API_KEY = os.getenv("GEMINI_API_KEY", "")
 
 def cek_pakai_ai(kode_user, bahasa_program, bahasa_mkd, gaya):
     if not GEMINI_API_KEY:
