@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cek Syntax Error - Mas Koding</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    {% set active_page = 'debugger' %}
+    {% include '_nav.html' %}
+
+    <main>
+        <span class="page-eyebrow">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+            Mas Koding Debugger
+        </span>
+        <h1>Tanya Mas Koding</h1>
+        <p class="page-lede">Paste kode yang error, mase. Mas Koding bakal jelasin masalahnya sesuai gaya dan bahasa yang kamu pilih.</p>
+
+        <div class="mk-grid-split">
+            <div class="mk-card">
+                <form method="POST">
+                    <div class="mk-row">
+                        <div class="mk-field">
+                            <label for="bahasa_program">Bahasa pemrograman</label>
+                            <select name="bahasa_program" id="bahasa_program">
+                                <option value="python" {% if bahasa_program == "python" %}selected{% endif %}>Python</option>
+                                <option value="html" {% if bahasa_program == "html" %}selected{% endif %}>HTML</option>
+                                <option value="css" {% if bahasa_program == "css" %}selected{% endif %}>CSS</option>
+                                <option value="javascript" {% if bahasa_program == "javascript" %}selected{% endif %}>JavaScript</option>
+                                <option value="csharp" {% if bahasa_program == "csharp" %}selected{% endif %}>C#</option>
+                            </select>
+                        </div>
+                        <div class="mk-field">
+                            <label for="bahasa_mkd">Bahasa Mas Koding</label>
+                            <select name="bahasa_mkd" id="bahasa_mkd">
+                                <option value="indonesia" {% if bahasa_mkd == "indonesia" %}selected{% endif %}>Indonesia</option>
+                                <option value="ngapak" {% if bahasa_mkd == "ngapak" %}selected{% endif %}>Ngapak Wonosobo</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="mk-field">
+                        <label for="gaya">Gaya bicara</label>
+                        <select name="gaya" id="gaya">
+                            <option value="gaul" {% if gaya == "gaul" %}selected{% endif %}>Santai / Gaul</option>
+                            <option value="galak" {% if gaya == "galak" %}selected{% endif %}>Galak</option>
+                        </select>
+                    </div>
+
+                    <div class="mk-field">
+                        <label for="kode_user">Kode kamu</label>
+                        <textarea name="kode_user" id="kode_user" rows="12" class="mk-code" placeholder="paste kode error kamu di sini...">{{ request.form.kode_user or '' }}</textarea>
+                    </div>
+
+                    <button type="submit" class="mk-btn mk-btn-gold">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+                        Cek sekarang
+                    </button>
+                </form>
+            </div>
+
+            <div class="mk-result">
+                {% if hasil %}
+                <div class="mk-avatar-row">
+                    <span class="mk-avatar">MK</span>
+                    <div>
+                        <div class="mk-avatar-title">Mas Koding</div>
+                        <div class="mk-avatar-name">Wasit Debugging Wonosobo</div>
+                    </div>
+                </div>
+                <div class="mk-result-body">{{ hasil | safe }}</div>
+                {% else %}
+                <div class="mk-result-empty">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+                    <div>
+                        <strong style="display:block; color: var(--ink); font-family: var(--font-display); font-size: 15px; margin-bottom: 4px;">Belum ada hasil</strong>
+                        Isi kode di sebelah kiri terus klik "Cek sekarang", nanti diagnosisnya muncul di sini.
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </main>
+</body>
+</html>

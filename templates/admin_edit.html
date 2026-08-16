@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Soal - Admin</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    {% set active_page = 'admin' %}
+    {% include '_nav.html' %}
+
+    <main>
+        <span class="page-eyebrow">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"></path></svg>
+            Area admin
+        </span>
+        <h1>Edit Soal</h1>
+        <p class="page-lede">Update kode atau hint buat soal ini.</p>
+
+        <div class="mk-card" style="max-width: 640px;">
+            <form method="POST">
+                <div class="mk-row">
+                    <div class="mk-field">
+                        <label for="bahasa">Bahasa</label>
+                        <select name="bahasa" id="bahasa">
+                            <option value="python" {% if soal.bahasa == "python" %}selected{% endif %}>Python</option>
+                            <option value="html" {% if soal.bahasa == "html" %}selected{% endif %}>HTML</option>
+                            <option value="css" {% if soal.bahasa == "css" %}selected{% endif %}>CSS</option>
+                            <option value="javascript" {% if soal.bahasa == "javascript" %}selected{% endif %}>JavaScript</option>
+                            <option value="csharp" {% if soal.bahasa == "csharp" %}selected{% endif %}>C#</option>
+                        </select>
+                    </div>
+                    <div class="mk-field">
+                        <label for="level">Level</label>
+                        <select name="level" id="level">
+                            <option value="pemula" {% if soal.level == "pemula" %}selected{% endif %}>Pemula</option>
+                            <option value="medium" {% if soal.level == "medium" %}selected{% endif %}>Medium</option>
+                            <option value="pro" {% if soal.level == "pro" %}selected{% endif %}>Pro</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="mk-field">
+                    <label for="buggy_code">Buggy code (kode yang salah)</label>
+                    <textarea name="buggy_code" id="buggy_code" rows="6" class="mk-code">{{ soal.buggy_code }}</textarea>
+                </div>
+
+                <div class="mk-field">
+                    <label for="fixed_code">Fixed code (kode yang benar)</label>
+                    <textarea name="fixed_code" id="fixed_code" rows="6" class="mk-code">{{ soal.fixed_code }}</textarea>
+                </div>
+
+                <div class="mk-field">
+                    <label for="hint">Hint (petunjuk)</label>
+                    <input type="text" name="hint" id="hint" value="{{ soal.hint }}">
+                </div>
+
+                <div class="mk-actions">
+                    <button type="submit" class="mk-btn mk-btn-gold">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>
+                        Update soal
+                    </button>
+                    <a href="/admin/soal" class="mk-btn mk-btn-ghost">Batal</a>
+                </div>
+            </form>
+        </div>
+    </main>
+</body>
+</html>

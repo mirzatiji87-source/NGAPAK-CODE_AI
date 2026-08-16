@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soal {{ nomor }} - Mas Koding</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    {% set active_page = 'kuis' %}
+    {% include '_nav.html' %}
+
+    <main>
+        <div class="mk-meta-row">
+            <span>SOAL {{ nomor }} DARI {{ total }}</span>
+            <span class="mk-score-chip">
+                <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                Skor {{ skor }}
+            </span>
+        </div>
+        <div class="mk-progress-track">
+            <div class="mk-progress-fill" style="width: {{ (nomor / total * 100) | round(1) }}%;"></div>
+        </div>
+
+        <h1>Perbaiki kode ini</h1>
+        <p class="page-lede">
+            <span class="mk-badge mk-badge-{{ soal.level }}">{{ soal.level }}</span>
+            &nbsp;{{ soal.bahasa }}
+        </p>
+
+        <div class="mk-card">
+            <pre class="mk-code-block">{{ soal.buggy_code }}</pre>
+        </div>
+
+        <div class="mk-card">
+            <form method="POST">
+                <div class="mk-field">
+                    <label for="jawaban">Jawaban kamu</label>
+                    <textarea name="jawaban" id="jawaban" rows="8" class="mk-code" placeholder="tulis kode yang udah kamu benerin..."></textarea>
+                </div>
+                <button type="submit" class="mk-btn mk-btn-gold">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2 11 13"></path><path d="M22 2 15 22l-4-9-9-4 20-7z"></path></svg>
+                    Kirim jawaban
+                </button>
+            </form>
+        </div>
+    </main>
+</body>
+</html>

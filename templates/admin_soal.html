@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kelola Soal - Admin</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    {% set active_page = 'admin' %}
+    {% include '_nav.html' %}
+
+    <main>
+        <div class="mk-admin-header">
+            <div>
+                <span class="page-eyebrow">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                    Area admin
+                </span>
+                <h1>Kelola Soal Kuis</h1>
+                <p class="mk-count">Total soal: {{ daftar_soal|length }}</p>
+            </div>
+            <a href="/admin/soal/tambah" class="mk-btn mk-btn-gold">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                Tambah soal baru
+            </a>
+        </div>
+
+        <div class="mk-tabs">
+            <a href="/admin/soal?bahasa=python" class="mk-tab {{ 'is-active' if filter_bahasa == 'python' else '' }}">Python</a>
+            <a href="/admin/soal?bahasa=html" class="mk-tab {{ 'is-active' if filter_bahasa == 'html' else '' }}">HTML</a>
+            <a href="/admin/soal?bahasa=css" class="mk-tab {{ 'is-active' if filter_bahasa == 'css' else '' }}">CSS</a>
+            <a href="/admin/soal?bahasa=javascript" class="mk-tab {{ 'is-active' if filter_bahasa == 'javascript' else '' }}">JavaScript</a>
+            <a href="/admin/soal?bahasa=csharp" class="mk-tab {{ 'is-active' if filter_bahasa == 'csharp' else '' }}">C#</a>
+        </div>
+
+        <div class="mk-table-wrap">
+            <table class="mk-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Bahasa</th>
+                        <th>Level</th>
+                        <th>Buggy Code</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for soal in daftar_soal %}
+                    <tr>
+                        <td>{{ loop.index }}</td>
+                        <td>{{ soal.bahasa }}</td>
+                        <td><span class="mk-badge mk-badge-{{ soal.level }}">{{ soal.level }}</span></td>
+                        <td><pre class="mk-code-preview">{{ soal.buggy_code }}</pre></td>
+                        <td>
+                            <div class="mk-actions" style="margin-top: 0;">
+                                <a href="/admin/soal/edit/{{ soal.id }}" class="mk-btn mk-btn-ghost mk-btn-sm">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"></path></svg>
+                                    Edit
+                                </a>
+                                <a href="/admin/soal/hapus/{{ soal.id }}" class="mk-btn mk-btn-danger mk-btn-sm">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+                                    Hapus
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="5" class="mk-empty-row">Belum ada soal buat kategori ini.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </main>
+</body>
+</html>

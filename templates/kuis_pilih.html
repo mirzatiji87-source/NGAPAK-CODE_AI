@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Main Kuis - Mas Koding</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    {% set active_page = 'kuis' %}
+    {% include '_nav.html' %}
+
+    <main>
+        <span class="page-eyebrow">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+            Bug Hunter
+        </span>
+        <h1>Main Kuis Codingan</h1>
+        <p class="page-lede">Pilih dulu mau kuis apa, mase. Nanti kamu dikasih kode yang buggy, tugas kamu benerin.</p>
+
+        <div class="mk-card" style="max-width: 460px;">
+            <form method="POST">
+                <div class="mk-field">
+                    <label for="bahasa">Bahasa pemrograman</label>
+                    <select name="bahasa" id="bahasa">
+                        <option value="python">Python</option>
+                        <option value="html">HTML</option>
+                        <option value="css">CSS</option>
+                        <option value="javascript">JavaScript</option>
+                        <option value="csharp">C#</option>
+                    </select>
+                </div>
+
+                <div class="mk-field">
+                    <label for="level">Level kesulitan</label>
+                    <select name="level" id="level">
+                        <option value="pemula">Pemula</option>
+                        <option value="medium">Medium</option>
+                        <option value="pro">Pro</option>
+                    </select>
+                </div>
+
+                <div class="mk-field">
+                    <label for="jumlah">Jumlah soal</label>
+                    <select name="jumlah" id="jumlah">
+                        <option value="5">5 Soal</option>
+                        <option value="10">10 Soal</option>
+                        <option value="100">100 Soal</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="mk-btn mk-btn-gold" style="width: 100%;">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                    Mulai kuis
+                </button>
+            </form>
+        </div>
+    </main>
+</body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login - Mas Koding</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    {% set active_page = 'admin' %}
+    {% include '_nav.html' %}
+
+    <main>
+        <div class="mk-card" style="max-width: 400px; margin: 40px auto 0;">
+            <span class="page-eyebrow">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                Area admin
+            </span>
+            <h1>Login Admin</h1>
+            <p class="page-lede" style="margin-bottom: 20px;">Masukin password buat kelola soal kuis.</p>
+
+            {% if error %}
+            <div class="mk-error-text">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+                {{ error }}
+            </div>
+            {% endif %}
+
+            <form method="POST">
+                <div class="mk-field">
+                    <label for="password">Password</label>
+                    <div class="mk-pass-wrap">
+                        <input type="password" name="password" id="password" placeholder="••••••••">
+                        <button type="button" class="mk-pass-toggle" id="togglePass" aria-label="Tampilkan password">
+                            <svg id="iconEyeOpen" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                            <svg id="iconEyeClosed" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none;"><path d="M17.94 17.94A10.94 10.94 0 0 1 12 20c-7 0-11-8-11-8a21.62 21.62 0 0 1 5.06-6.06M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a21.6 21.6 0 0 1-2.61 3.94"></path><line x1="1" y1="1" x2="23" y2="23"></line><path d="M9.9 9.9a3 3 0 1 0 4.2 4.2"></path></svg>
+                        </button>
+                    </div>
+                </div>
+
+                <button type="submit" class="mk-btn mk-btn-gold" style="width: 100%;">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"></path><polyline points="10 17 15 12 10 7"></polyline><line x1="15" y1="12" x2="3" y2="12"></line></svg>
+                    Login
+                </button>
+            </form>
+        </div>
+    </main>
+
+    <script>
+        const togglePass = document.getElementById('togglePass');
+        const passInput = document.getElementById('password');
+        const iconOpen = document.getElementById('iconEyeOpen');
+        const iconClosed = document.getElementById('iconEyeClosed');
+
+        togglePass.addEventListener('click', () => {
+            const isHidden = passInput.type === 'password';
+            passInput.type = isHidden ? 'text' : 'password';
+            iconOpen.style.display = isHidden ? 'none' : 'block';
+            iconClosed.style.display = isHidden ? 'block' : 'none';
+            togglePass.setAttribute('aria-label', isHidden ? 'Sembunyikan password' : 'Tampilkan password');
+        });
+    </script>
+</body>
+</html>

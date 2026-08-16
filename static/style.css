@@ -1,0 +1,1067 @@
+/* =========================================================
+   MAS KODING — Warm Editorial / Joglo Wonosobo design system
+   One token system used across every page: landing, debugger,
+   kuis, and admin. Extends the palette that index.html started.
+   ========================================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500..800&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;1,500&family=JetBrains+Mono:wght@400;500;700&display=swap');
+
+:root {
+    /* -- Palette -- */
+    --wood: #2B1B10;
+    --wood-mid: #4A2F1C;
+    --cream: #F1E6CE;
+    --paper: #FAF3E3;
+    --paper-dim: #F3E8D2;
+    --gold: #B8862B;
+    --gold-line: rgba(184, 134, 43, 0.35);
+    --brick: #A2371C;
+    --ink: #1A120B;
+    --ink-soft: #6B5A46;
+    --line: #E4D6B8;
+
+    --success: #2E7D32;
+    --success-bg: #D9EDDB;
+    --warn: #9A6B00;
+    --warn-bg: #FBEDC8;
+    --danger: #B33A3A;
+    --danger-bg: #F8D9D3;
+
+    /* -- Type -- */
+    --font-display: 'Fraunces', serif;
+    --font-body: 'Plus Jakarta Sans', sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+
+    /* -- Shape / motion -- */
+    --radius: 10px;
+    --radius-sm: 6px;
+    --shadow: 0 2px 10px rgba(43, 27, 16, 0.10);
+    --shadow-lift: 0 10px 28px rgba(43, 27, 16, 0.16);
+    --ease: 200ms ease;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--font-body);
+    background-color: var(--cream);
+    color: var(--ink);
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+}
+
+main {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 40px 24px 80px;
+}
+
+a {
+    color: inherit;
+}
+
+:focus-visible {
+    outline: 2px solid var(--brick);
+    outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    * {
+        transition: none !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+h1, h2, h3 {
+    font-family: var(--font-display);
+    color: var(--ink);
+    margin: 0 0 6px;
+    line-height: 1.15;
+}
+
+h1 {
+    font-weight: 800;
+    font-size: clamp(1.7rem, 4vw, 2.3rem);
+}
+
+h2 {
+    font-weight: 700;
+    font-size: 1.3rem;
+}
+
+.page-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 10px;
+}
+
+.page-lede {
+    color: var(--ink-soft);
+    font-size: 15px;
+    max-width: 60ch;
+    margin: 0 0 28px;
+}
+
+/* ---------- Shared top nav ---------- */
+.mk-nav {
+    background-color: var(--wood);
+    border-bottom: 3px solid var(--gold);
+}
+
+.mk-nav-inner {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 14px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.mk-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+}
+
+.mk-brand-mark {
+    width: 34px;
+    height: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: radial-gradient(circle at 35% 30%, var(--wood-mid), var(--wood));
+    border: 1.5px solid var(--gold);
+    border-radius: 6px;
+    flex-shrink: 0;
+}
+
+.mk-brand-mark img {
+    width: 70%;
+    height: 70%;
+    object-fit: contain;
+}
+
+.mk-brand-name {
+    font-family: var(--font-mono);
+    color: var(--cream);
+    font-size: 13px;
+    letter-spacing: 0.05em;
+}
+
+.mk-nav-links {
+    display: flex;
+    gap: 4px;
+    flex-wrap: wrap;
+}
+
+.mk-nav-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 14px;
+    border-radius: 20px;
+    text-decoration: none;
+    color: var(--cream);
+    font-family: var(--font-mono);
+    font-size: 12.5px;
+    letter-spacing: 0.02em;
+    border: 1px solid transparent;
+    transition: background-color var(--ease), border-color var(--ease), color var(--ease);
+    cursor: pointer;
+}
+
+.mk-nav-link:hover {
+    border-color: var(--gold-line);
+    background-color: rgba(184, 134, 43, 0.12);
+}
+
+.mk-nav-link.is-active {
+    background-color: var(--gold);
+    color: var(--ink);
+}
+
+.mk-nav-link svg {
+    width: 15px;
+    height: 15px;
+    flex-shrink: 0;
+}
+
+/* ---------- Cards ---------- */
+.mk-card {
+    background-color: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 28px;
+}
+
+.mk-card+.mk-card {
+    margin-top: 20px;
+}
+
+.mk-grid-split {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 22px;
+    align-items: start;
+}
+
+@media (max-width: 760px) {
+    .mk-grid-split {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ---------- Forms ---------- */
+.mk-field {
+    margin-bottom: 18px;
+}
+
+.mk-field label {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin-bottom: 7px;
+}
+
+.mk-field select,
+.mk-field input[type="text"],
+.mk-field input[type="password"],
+.mk-field textarea {
+    width: 100%;
+    padding: 11px 13px;
+    border: 1.5px solid var(--line);
+    border-radius: var(--radius-sm);
+    font-size: 14.5px;
+    font-family: inherit;
+    background-color: #fff;
+    color: var(--ink);
+    transition: border-color var(--ease), box-shadow var(--ease);
+}
+
+.mk-field textarea.mk-code {
+    font-family: var(--font-mono);
+    font-size: 13.5px;
+    resize: vertical;
+    background-color: var(--wood);
+    color: var(--cream);
+    border-color: var(--wood-mid);
+}
+
+.mk-field select:focus,
+.mk-field input:focus,
+.mk-field textarea:focus {
+    outline: none;
+    border-color: var(--gold);
+    box-shadow: 0 0 0 3px var(--gold-line);
+}
+
+.mk-row {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+}
+
+.mk-row .mk-field {
+    flex: 1;
+    min-width: 160px;
+}
+
+/* ---------- Buttons ---------- */
+.mk-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background-color: var(--wood);
+    color: var(--cream);
+    border: none;
+    padding: 12px 22px;
+    border-radius: var(--radius-sm);
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color var(--ease), transform var(--ease), box-shadow var(--ease);
+    text-decoration: none;
+}
+
+.mk-btn:hover {
+    background-color: var(--wood-mid);
+    box-shadow: var(--shadow);
+    transform: translateY(-1px);
+}
+
+.mk-btn:active {
+    transform: translateY(0);
+}
+
+.mk-btn svg {
+    width: 16px;
+    height: 16px;
+}
+
+.mk-btn-gold {
+    background-color: var(--gold);
+    color: var(--ink);
+}
+
+.mk-btn-gold:hover {
+    background-color: #A3771F;
+}
+
+.mk-btn-ghost {
+    background-color: transparent;
+    color: var(--ink-soft);
+    border: 1.5px solid var(--line);
+}
+
+.mk-btn-ghost:hover {
+    border-color: var(--ink-soft);
+    background-color: var(--paper-dim);
+    color: var(--ink);
+}
+
+.mk-btn-danger {
+    background-color: var(--danger);
+    color: #fff;
+}
+
+.mk-btn-danger:hover {
+    background-color: #8E2A2A;
+}
+
+.mk-btn-sm {
+    padding: 7px 14px;
+    font-size: 12.5px;
+}
+
+.mk-actions {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 6px;
+}
+
+/* ---------- Badges ---------- */
+.mk-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-family: var(--font-mono);
+    font-size: 11.5px;
+    font-weight: 500;
+    text-transform: capitalize;
+}
+
+.mk-badge-pemula {
+    background-color: var(--success-bg);
+    color: var(--success);
+}
+
+.mk-badge-medium {
+    background-color: var(--warn-bg);
+    color: var(--warn);
+}
+
+.mk-badge-pro {
+    background-color: var(--danger-bg);
+    color: var(--danger);
+}
+
+/* ---------- Code blocks ---------- */
+pre.mk-code-block {
+    background-color: var(--wood);
+    color: var(--cream);
+    padding: 18px 20px;
+    border-radius: var(--radius);
+    overflow-x: auto;
+    font-family: var(--font-mono);
+    font-size: 13.5px;
+    border: 1px solid var(--wood-mid);
+    margin: 0;
+}
+
+/* ---------- Result / diagnosis panel (cek error) ---------- */
+.mk-result {
+    background-color: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 26px 28px;
+    min-height: 100%;
+}
+
+.mk-result-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: 12px;
+    color: var(--ink-soft);
+    padding: 40px 20px;
+    min-height: 260px;
+}
+
+.mk-result-empty svg {
+    width: 40px;
+    height: 40px;
+    color: var(--gold);
+}
+
+.mk-avatar-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+    padding-bottom: 16px;
+    border-bottom: 1px dashed var(--gold-line);
+}
+
+.mk-avatar {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, var(--wood-mid), var(--wood));
+    border: 2px solid var(--gold);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--gold);
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 16px;
+    flex-shrink: 0;
+}
+
+.mk-avatar-name {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--ink-soft);
+    letter-spacing: 0.02em;
+}
+
+.mk-avatar-title {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 16px;
+    color: var(--ink);
+}
+
+.mk-result-body {
+    font-size: 14.5px;
+    color: var(--ink);
+}
+
+.mk-result-body pre {
+    background-color: var(--wood);
+    color: var(--cream);
+    padding: 14px 16px;
+    border-radius: var(--radius-sm);
+    overflow-x: auto;
+    font-family: var(--font-mono);
+    font-size: 13px;
+    border: 1px solid var(--wood-mid);
+}
+
+.mk-result-body code {
+    font-family: var(--font-mono);
+    background-color: var(--paper-dim);
+    padding: 2px 5px;
+    border-radius: 4px;
+}
+
+/* ---------- Progress (kuis) ---------- */
+.mk-progress-track {
+    background-color: var(--paper-dim);
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    height: 8px;
+    overflow: hidden;
+    margin: 14px 0 24px;
+}
+
+.mk-progress-fill {
+    background-color: var(--gold);
+    height: 100%;
+    border-radius: 20px;
+    transition: width 300ms ease;
+}
+
+.mk-meta-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: var(--font-mono);
+    font-size: 12.5px;
+    color: var(--ink-soft);
+}
+
+.mk-score-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background-color: var(--wood);
+    color: var(--gold);
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-weight: 600;
+}
+
+/* ---------- Result summary (kuis selesai) ---------- */
+.mk-summary {
+    text-align: center;
+    padding: 30px 20px;
+}
+
+.mk-summary-score {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: clamp(2.6rem, 8vw, 4rem);
+    color: var(--gold);
+    line-height: 1;
+    margin: 10px 0 4px;
+}
+
+.mk-summary-total {
+    font-family: var(--font-mono);
+    color: var(--ink-soft);
+    font-size: 13px;
+}
+
+/* ---------- Password field with toggle ---------- */
+.mk-pass-wrap {
+    position: relative;
+}
+
+.mk-pass-wrap input {
+    padding-right: 44px;
+}
+
+.mk-pass-toggle {
+    position: absolute;
+    right: 6px;
+    top: 6px;
+    bottom: 6px;
+    width: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--ink-soft);
+    border-radius: var(--radius-sm);
+    transition: color var(--ease), background-color var(--ease);
+}
+
+.mk-pass-toggle:hover {
+    color: var(--ink);
+    background-color: var(--paper-dim);
+}
+
+.mk-pass-toggle svg {
+    width: 18px;
+    height: 18px;
+}
+
+.mk-error-text {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--danger);
+    background-color: var(--danger-bg);
+    border-radius: var(--radius-sm);
+    padding: 10px 14px;
+    font-size: 13.5px;
+    margin-bottom: 18px;
+}
+
+.mk-error-text svg {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+}
+
+/* ---------- Admin table ---------- */
+.mk-admin-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-bottom: 22px;
+}
+
+.mk-count {
+    font-family: var(--font-mono);
+    color: var(--ink-soft);
+    font-size: 13px;
+    margin: 4px 0 0;
+}
+
+.mk-tabs {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.mk-tab {
+    padding: 8px 16px;
+    background-color: var(--paper);
+    border: 1.5px solid var(--line);
+    border-radius: 20px;
+    text-decoration: none;
+    color: var(--ink-soft);
+    font-family: var(--font-mono);
+    font-size: 13px;
+    transition: border-color var(--ease), color var(--ease), background-color var(--ease);
+}
+
+.mk-tab:hover {
+    border-color: var(--gold);
+    color: var(--ink);
+}
+
+.mk-tab.is-active {
+    background-color: var(--wood);
+    color: var(--cream);
+    border-color: var(--wood);
+}
+
+.mk-table-wrap {
+    background-color: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    overflow-x: auto;
+    box-shadow: var(--shadow);
+}
+
+table.mk-table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+
+.mk-table th {
+    background-color: var(--wood);
+    color: var(--cream);
+    text-align: left;
+    padding: 13px 16px;
+    font-size: 12px;
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.mk-table th:nth-child(1) {
+    width: 7%;
+}
+
+.mk-table th:nth-child(2) {
+    width: 13%;
+}
+
+.mk-table th:nth-child(3) {
+    width: 13%;
+}
+
+.mk-table th:nth-child(4) {
+    width: 45%;
+}
+
+.mk-table th:nth-child(5) {
+    width: 22%;
+}
+
+.mk-table td {
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--line);
+    vertical-align: middle;
+    font-size: 13.5px;
+}
+
+.mk-table tbody tr {
+    transition: background-color var(--ease);
+}
+
+.mk-table tbody tr:hover {
+    background-color: var(--paper-dim);
+}
+
+.mk-code-preview {
+    background-color: var(--wood);
+    color: var(--cream);
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 12.5px;
+    font-family: var(--font-mono);
+    max-height: 72px;
+    overflow: auto;
+    margin: 0;
+}
+
+.mk-empty-row {
+    text-align: center;
+    color: var(--ink-soft);
+    padding: 40px 20px !important;
+    font-family: var(--font-mono);
+    font-size: 13px;
+}
+
+/* =========================================================
+   LANDING PAGE — Joglo / Wonosobo hero (unchanged structure,
+   now sourced from the shared tokens above)
+   ========================================================= */
+
+.landing-body {
+    background-color: var(--cream);
+}
+
+.landing-hero {
+    position: relative;
+    overflow: hidden;
+    padding: 48px 24px 0;
+}
+
+.landing-hero-roof {
+    position: absolute;
+    inset: auto 0 0 0;
+    height: 200px;
+    opacity: 0.92;
+    pointer-events: none;
+}
+
+.landing-hero-roof svg {
+    width: 100%;
+    height: 100%;
+}
+
+.roof-base {
+    fill: var(--wood-mid);
+}
+
+.roof-upper {
+    fill: var(--wood);
+}
+
+.roof-ridge {
+    fill: var(--gold);
+    opacity: 0.85;
+}
+
+.roof-eave {
+    stroke: var(--gold);
+    stroke-width: 2;
+    opacity: 0.5;
+}
+
+.roof-eave-thin {
+    stroke-width: 1.5;
+    opacity: 0.4;
+}
+
+.landing-hero-inner {
+    position: relative;
+    max-width: 900px;
+    margin: 0 auto;
+    padding-bottom: 190px;
+}
+
+.landing-badge {
+    display: inline-flex;
+    align-items: center;
+    background-color: var(--wood);
+    color: var(--cream);
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    padding: 7px 16px;
+    border-left: 3px solid var(--gold);
+    margin-bottom: 28px;
+}
+
+.landing-hero-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 22px;
+}
+
+.landing-mascot {
+    position: relative;
+    flex-shrink: 0;
+    width: 76px;
+    height: 76px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: radial-gradient(circle at 35% 30%, var(--wood-mid), var(--wood));
+    border: 2px solid var(--gold);
+    border-radius: 10px;
+    animation: mascot-float 4.5s ease-in-out infinite;
+}
+
+.landing-mascot::before {
+    content: '';
+    position: absolute;
+    inset: -14px;
+    border-radius: 50%;
+    background: radial-gradient(circle, var(--gold-line) 0%, transparent 70%);
+    animation: mascot-glow 4.5s ease-in-out infinite;
+    z-index: -1;
+}
+
+.landing-mascot img {
+    width: 68%;
+    height: 68%;
+    object-fit: contain;
+}
+
+@keyframes mascot-float {
+    0%, 100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-6px);
+    }
+}
+
+@keyframes mascot-glow {
+    0%, 100% {
+        opacity: 0.5;
+        transform: scale(0.92);
+    }
+
+    50% {
+        opacity: 1;
+        transform: scale(1.08);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    .landing-mascot,
+    .landing-mascot::before {
+        animation: none;
+    }
+}
+
+.landing-title {
+    font-family: var(--font-display);
+    font-weight: 800;
+    color: var(--ink);
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    line-height: 1.05;
+    letter-spacing: -0.01em;
+    border-bottom: none;
+    margin: 0;
+    padding: 0;
+}
+
+.landing-subtitle {
+    font-family: var(--font-body);
+    color: var(--ink-soft);
+    font-size: 15px;
+    line-height: 1.6;
+    max-width: 480px;
+    margin-top: 10px;
+}
+
+.landing-tabs {
+    display: flex;
+    justify-content: center;
+    gap: 4px;
+    max-width: 460px;
+    margin: -70px auto 40px;
+    position: relative;
+    z-index: 2;
+    background-color: var(--wood);
+    padding: 5px;
+    border: 1px solid var(--gold-line);
+}
+
+.landing-tab {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    padding: 11px 16px;
+    text-decoration: none;
+    color: var(--cream);
+    font-family: var(--font-mono);
+    font-size: 11.5px;
+    letter-spacing: 0.03em;
+    cursor: pointer;
+    transition: background-color var(--ease), color var(--ease);
+}
+
+.landing-tab svg {
+    width: 15px;
+    height: 15px;
+    flex-shrink: 0;
+}
+
+.landing-tab-active {
+    background-color: var(--gold);
+    color: var(--ink);
+}
+
+.landing-tab:not(.landing-tab-active):hover {
+    background-color: rgba(184, 134, 43, 0.18);
+}
+
+.landing-download-wrap {
+    text-align: center;
+    margin-bottom: 44px;
+}
+
+.landing-download {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--ink-soft);
+    text-decoration: none;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    border-bottom: 1px dashed var(--gold);
+    padding-bottom: 2px;
+    transition: color var(--ease);
+}
+
+.landing-download svg {
+    width: 13px;
+    height: 13px;
+}
+
+.landing-download:hover {
+    color: var(--brick);
+}
+
+.landing-steps {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1px;
+    max-width: 900px;
+    margin: 0 auto 48px;
+    padding: 0 24px;
+    background-color: rgba(74, 47, 28, 0.18);
+    border: 1px solid rgba(74, 47, 28, 0.18);
+}
+
+.landing-step {
+    background-color: var(--paper);
+    padding: 26px 24px;
+}
+
+.landing-step-num {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--gold);
+    border: 1px solid var(--gold);
+    width: 22px;
+    height: 22px;
+    line-height: 20px;
+    text-align: center;
+    margin-bottom: 12px;
+}
+
+.landing-step h4 {
+    font-family: var(--font-display);
+    color: var(--ink);
+    font-size: 18px;
+    margin: 0 0 8px;
+}
+
+.landing-step p {
+    font-family: var(--font-body);
+    font-size: 13.5px;
+    color: var(--ink-soft);
+    line-height: 1.6;
+    margin: 0;
+}
+
+.landing-footer {
+    background-color: var(--wood);
+    margin-top: 20px;
+}
+
+.landing-footer-motif {
+    height: 10px;
+    background-image: radial-gradient(circle, transparent 3px, var(--wood) 3.5px),
+        radial-gradient(circle, rgba(184, 134, 43, 0.35) 3px, transparent 3.5px);
+    background-size: 16px 16px, 16px 16px;
+    background-position: 0 0, 8px 0;
+}
+
+.landing-footer-inner {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 26px 24px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+}
+
+.landing-footer-credit {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: #C9BBA0;
+    margin: 0;
+}
+
+.landing-footer-links {
+    display: flex;
+    gap: 18px;
+}
+
+.landing-footer-links a {
+    color: var(--gold);
+    text-decoration: none;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    transition: opacity var(--ease);
+}
+
+.landing-footer-links a:hover {
+    opacity: 0.75;
+    text-decoration: underline;
+}
+
+@media (max-width: 560px) {
+    .landing-hero-row {
+        flex-direction: column;
+    }
+
+    .landing-tabs {
+        flex-direction: column;
+        margin-top: -40px;
+    }
+}
