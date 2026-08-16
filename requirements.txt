@@ -1,4 +1,4 @@
 flask
 markdown
-google-generativeai
+google-genai
 python-dotenv
